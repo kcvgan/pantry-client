@@ -4,7 +4,7 @@ import LoginForm from './form/LoginForm';
 class LoginPage extends Component {
 
   
-  render() {
+  public render() {
     return (
       <>
         <LoginForm></LoginForm>

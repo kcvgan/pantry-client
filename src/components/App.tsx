@@ -5,7 +5,7 @@ import HomePage from './home/HomePage';
 import './App.css';
 
 class App extends Component {
-  render() {
+  public render() {
     return (
       <Router>
         <Switch>
