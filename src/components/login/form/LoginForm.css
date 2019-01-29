@@ -1,0 +1,88 @@
+.pButton {
+  font-size: 15px;
+  align-self: stretch;
+  cursor: pointer;
+  color: #FF785A; 
+  background: none;
+  border: 1px solid #FF785A;
+  border-radius: 6px; 
+  outline: none;
+  padding: 1em 1.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  transition:color 0.25s ease;
+}
+
+.pButtonRegistered {
+  font-size: 15px;
+  text-shadow: 1px 1px 6px rgba(150, 150, 150, 0.82);
+  align-self: stretch;
+  cursor: pointer;
+  color: white; 
+  background: lightgreen;
+  border: 1px solid lightgreen;
+  border-radius: 6px; 
+  outline: none;
+  padding: 1em 1.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  transition:color 0.25s ease;
+}
+
+.pButton:hover {
+  text-shadow: 1px 1px 6px rgba(150, 150, 150, 0.82);
+  color: white;
+  background-color: #FF785A;
+}
+.pButton:hover:after {
+  content: ' \279C';
+  transition:0.15s ease;
+}
+.pButton:active {
+  background-color: white;
+  color: #FF785A;
+}
+.pTextInput:focus {
+  text-shadow: 1px 1px 6px rgba(150, 150, 150, 0.82);
+  background-color: #FF785A;
+  color: white;
+  caret-color: white;
+}
+.pTextInput:focus::placeholder {
+  text-shadow: 1px 1px 6px rgba(150, 150, 150, 0.82);
+  font-weight: normal;
+  color: white;
+}
+
+.pTextInput::placeholder{
+  font-weight: normal;
+  transition:color 0.25s ease;
+  opacity: 0.5;
+}
+
+.pTextInput {
+  transition:background-color 0.25s ease;
+  width: 100%;
+  padding: 5px 1.5em;
+  margin-top: 0.5em;
+  box-sizing: border-box;
+  background: transparent;
+  outline: none;
+  border: 1px solid #FF785A;
+  border-radius: 6px;
+  font-weight: bold;
+  color: #FF785A;
+  line-height: 40px;
+  font-size: 15px;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+}

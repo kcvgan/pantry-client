@@ -1,30 +1,38 @@
 import React, { useState, ChangeEvent } from 'react';
+import './LoginForm.css';
+import User from '../../../models/user';
 
-const LoginForm = () => {
+export interface LoginFormProps {
+  submitUser(user: User): void;
+  registerUser(user: User): void;
+  registerButtonState: boolean;
+}
+
+const LoginForm = (props: LoginFormProps) => {
   const [values, setValues] = useState({ email: '', password: ''});
   
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [event.target.name]: event.target.value});
   }
 
-  const handleSubmit = () => {
-    1 + 2;
-  };
+  const { submitUser, registerUser, registerButtonState } = props;
+
+  const isRegistered = (registerButtonState: boolean): string => {
+    if(registerButtonState) {
+      return 'pButtonRegistered';
+    } else {
+      return 'pButton';
+    }
+  }
 
   return (
     <>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <label >
-          Email:
-          <input name="email" type="text" value={values.email} onChange={onChange}/>
-        </label>
-        <label >
-          Password:
-          <input name="password" type="text" value={values.password} onChange={onChange}/>
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
+      <input onChange={onChange} name="email" className={'pTextInput'} type="text" placeholder="Email"/>
+      <input onChange={onChange} name="password" className={'pTextInput'} type="password" placeholder="Password"/>
+      <button className={'pButton'} onClick={() => submitUser(values)}>Submit</button>
+      <button className={isRegistered(registerButtonState)} onClick={() => registerUser(values)}>
+      {registerButtonState ? 'Success!' : 'Register'}
+      </button>
     </>
   );
 };
