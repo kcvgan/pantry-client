@@ -1,0 +1,26 @@
+.navIcons {
+  color: white;
+  display: flex;
+  margin-top: 18px;
+  flex-direction: column;
+  left: 20px;
+}
+
+.fas {
+  padding: 20px;
+  transition: all 0.25s ease;
+}
+
+.fas:hover {
+  background-color: white;
+  color: black;
+}
+
+@media screen and (max-width: 500px) {
+  .navIcons {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 18px;
+  }
+
+}
