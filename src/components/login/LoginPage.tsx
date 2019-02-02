@@ -1,8 +1,8 @@
 import React, { Component, useState} from 'react';
 import LoginForm from './form/LoginForm';
 import './LoginPage.css';
-import * as authService from '../../services/authService';
-import User from '../../models/user';
+import * as authService from '../../services/auth.service';
+import User from '../../models/user.model';
 import { Redirect } from 'react-router';
 
 export interface LoginPageState {

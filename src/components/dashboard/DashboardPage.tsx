@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Navbar from './navbar/Navbar';
 import './DashboardPage.css';
-import FillerParagrahps from './FillerParagraphs';
+import PantryContainer from './pantryContainer/PantryContainer';
 
 class DashboardPage extends Component {
 
@@ -10,8 +10,8 @@ class DashboardPage extends Component {
       <div className={'dashboardWrapper'}>
         <main className={'dashboard'}>
           <div>
-          <FillerParagrahps text={'hello'} times={50}/>
-        </div>
+            <PantryContainer/>
+          </div>
         </main>
         <nav className={'navbar'}>
           <Navbar></Navbar>

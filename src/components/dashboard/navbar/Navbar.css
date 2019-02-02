@@ -1,26 +1,58 @@
 .navIcons {
   color: white;
+  flex-direction: row;
   display: flex;
+  justify-content: space-evenly;
   margin-top: 18px;
-  flex-direction: column;
-  left: 20px;
-}
-
-.fas {
-  padding: 20px;
-  transition: all 0.25s ease;
 }
 
 .fas:hover {
-  background-color: white;
-  color: black;
+  color: #FFD25A;
 }
 
-@media screen and (max-width: 500px) {
+.fas {
+  padding-right: 20px;
+  padding-left: 20px;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.navText {
+  font-size: 0px;
+  cursor: pointer;
+  user-select: none;
+}
+
+@media screen and (min-width: 501px) {
   .navIcons {
+    color: white;
     display: flex;
-    justify-content: space-evenly;
     margin-top: 18px;
+    flex-direction: column;
+    left: 20px;
   }
 
+  .fas {
+    padding: 20px;
+    transition: all 0.25s ease;
+  }
+
+  .navText {
+    color: #FF785A;
+    transition: initial;
+    font-size: 20px;
+    padding: 10px;
+    visibility: hidden;
+    padding-bottom: 10;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+  }
+
+  .fas:hover > .navText {
+    visibility: visible
+  }
+
+  .fas:hover {
+    background-color: white;
+    color: #FF785A;
+  }
 }

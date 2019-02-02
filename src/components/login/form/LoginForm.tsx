@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent } from 'react';
 import './LoginForm.css';
-import User from '../../../models/user';
+import User from '../../../models/user.model';
 
 export interface LoginFormProps {
   submitUser(user: User): void;

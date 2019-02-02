@@ -1,5 +1,5 @@
 import axiosWrapper from '../util/axiosWrapper';
-import User from '../models/user';
+import User from '../models/user.model';
 import { AxiosResponse, AxiosError } from 'axios';
 
 export const signIn = (user: User): Promise<string> => {
