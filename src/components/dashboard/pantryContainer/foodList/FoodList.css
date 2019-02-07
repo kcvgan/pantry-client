@@ -1,0 +1,15 @@
+.foodListHeader {
+  width: 500px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  border-radius: 10px;
+  background: white;
+}
+
+.foodList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  transition: all 0.25s ease;
+}

@@ -2,7 +2,7 @@ export interface Product {
   _id: number,
   name: string,
   type: string,
-  tags: string,
+  tags?: string,
   quantity: string,
   unit: string
 };

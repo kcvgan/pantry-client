@@ -12,14 +12,13 @@ const FoodList = (props: FoodListProps) => {
   const { products } = props;
 
   const renderProducts = (products: Products) => {
-    return products.map(product => <FoodItem product={product}/>);
+    return products.map(product => <FoodItem key={product._id} product={product}/>);
   };
 
   return (
-    <>
+    <div className={'foodList'}>
       {renderProducts(products)}
-    </>
+    </div>
   )
 }
-
 export default FoodList;
