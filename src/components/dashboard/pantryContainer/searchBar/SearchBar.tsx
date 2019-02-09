@@ -1,5 +1,8 @@
 import React, { useState, ChangeEvent } from 'react';
 import './SearchBar.css';
+import AddProduct from './AddProduct';
+import Product from '../../../../models/product.model';
+import * as productService from '../../../../services/product.service';
 
 export interface SearchBarProps {
   onSearch: (text: string) => any
@@ -21,21 +24,14 @@ const SearchBar = (props: SearchBarProps) => {
     setAddMenuOpen(true);
   }
 
+  const addProduct = (product: Product) => {
+    productService.addProduct(product);
+  }
+
   const renderAddButton = (isMenuOpen: boolean, onAddClick: Function) => {
-    console.log(isAddMenuOpen);
     if(isMenuOpen) {
       return (
-        <>
-        <div className={'searchBar'}>
-          <input onChange={onChange} className={'inputSearch'} type="text" placeholder="Add product"/>
-        </div>
-        <button onClick={() => setAddMenuOpen(true)} className={'addButton'}>
-          <i className={'fa fa-plus fa-2x'}/>
-        </button>
-        <button onClick={() => setAddMenuOpen(false)} className={'addButton'}>
-          <i className={'fa fa-trash fa-2x'}/>
-        </button>
-      </>
+        <AddProduct setAddMenuOpen={setAddMenuOpen} addProduct={addProduct}/>
       )
     } else {
       return <button onClick={() => setAddMenuOpen(true)} className={'addButton'}><i className={'fa fa-plus fa-2x'}/></button>;

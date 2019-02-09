@@ -3,7 +3,7 @@ import './FoodItem.css';
 import { Product } from '../../../../../models/product.model';
 
 export interface FoodItemProps {
-  key: number;
+  key?: number;
   product: Product;
 }
 
