@@ -6,6 +6,7 @@ export const signIn = (user: User): Promise<string> => {
   return axiosWrapper.post('/user/signin', user)
     .then((response: AxiosResponse) => {
       const { token } = response.data;
+      axiosWrapper.defaults.headers.common['token'] = token;
       return token;
     }).catch((error: AxiosError) => {
       return error.code;
