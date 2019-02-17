@@ -2,7 +2,8 @@ import Product, { Products } from "../../models/product.model";
 
 export enum ActionTypes {
   STORE_PRODUCTS = 'STORE_PRODUCTS',
-  DELETE_PRODUCT = 'DELETE_PRODUCT'
+  DELETE_PRODUCT = 'DELETE_PRODUCT',
+  ADD_PRODUCT = 'ADD_PRODUCT'
 };
 
 export interface StoreProductsAction { type: ActionTypes.STORE_PRODUCTS, payload: { products: Products } };
@@ -14,7 +15,7 @@ export const storeProducts = (products: Products): StoreProductsAction => ({
   }
 });
 
-export interface DeleteProductAction { type: ActionTypes.DELETE_PRODUCT, payload: { product: Product }};
+export interface DeleteProductAction { type: ActionTypes.DELETE_PRODUCT, payload: { product: Product } };
 
 export const deleteProduct = (product: Product): DeleteProductAction => ({
   type: ActionTypes.DELETE_PRODUCT,
@@ -23,4 +24,13 @@ export const deleteProduct = (product: Product): DeleteProductAction => ({
   }
 });
 
-export type Action = StoreProductsAction | DeleteProductAction;
+export interface AddProductAction { type: ActionTypes.ADD_PRODUCT, payload: { product: Product } };
+
+export const addProduct = (product: Product): AddProductAction => ({
+  type: ActionTypes.ADD_PRODUCT,
+  payload: {
+    product
+  }
+});
+
+export type Action = StoreProductsAction | DeleteProductAction | AddProductAction;

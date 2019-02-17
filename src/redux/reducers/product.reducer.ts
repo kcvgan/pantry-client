@@ -20,13 +20,16 @@ export const reducer = (state: State = initialState, action: Action) => {
     }
     case ActionTypes.DELETE_PRODUCT: {
       const { product } = action.payload;
-      if (state.products) {
-        return {
-          ...state,
-          products: state.products.filter(({ id }) => id !== product.id)
-        }
-      } else {
-        return state
+      return {
+        ...state,
+        products: state.products.filter(({ id }) => id !== product.id)
+      }
+    }
+    case ActionTypes.ADD_PRODUCT: {
+      const { product } = action.payload;
+      return {
+        ...state,
+        products: [...state.products, product]
       }
     }
     default:

@@ -14,13 +14,14 @@ export const getAllProducts = (): Promise<Products> => {
     })
 };
 
-export const addProduct = (product: Product): Promise<boolean> => {
+export const addProduct = (product: Product): Promise<Product> => {
   return axiosWrapper.post('/products/create', product)
     .then((response: AxiosResponse) => {
-      return true;
+      const { product } = response.data;
+      return product;
     })
     .catch((error: AxiosError) => {
-      return false;
+      throw false;
     });
 };
 

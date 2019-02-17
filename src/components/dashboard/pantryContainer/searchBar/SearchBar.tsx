@@ -3,9 +3,13 @@ import './SearchBar.css';
 import AddProduct from './AddProduct';
 import Product from '../../../../models/product.model';
 import * as productService from '../../../../services/product.service';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
+import { ActionTypes } from '../../../../redux/actions/product.actions';
 
 export interface SearchBarProps {
   onSearch: (text: string) => any
+  dispatch?: Dispatch;
 }
 
 const SearchBar = (props: SearchBarProps) => {
@@ -29,32 +33,43 @@ const SearchBar = (props: SearchBarProps) => {
   const addProduct = (product: Product) => {
     setProductBeingAdded(true);
     productService.addProduct(product)
-    .then(response => {
-      setProductBeingAdded(false);
-      console.log(response);
-    });
+      .then(responseProduct => {
+        setProductBeingAdded(false);
+        const addProduct = {
+          type: ActionTypes.ADD_PRODUCT,
+          payload: {
+            product: responseProduct
+          }
+        };
+        if (props.dispatch) {
+          props.dispatch(addProduct)
+        };
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
 
   const renderAddButton = (isMenuOpen: boolean, onAddClick: Function) => {
-    if(isMenuOpen) {
+    if (isMenuOpen) {
       return (
-        <AddProduct setAddMenuOpen={setAddMenuOpen} addProduct={addProduct} isAddingProduct={isProductBeingAdded}/>
+        <AddProduct setAddMenuOpen={setAddMenuOpen} addProduct={addProduct} isAddingProduct={isProductBeingAdded} />
       )
     } else {
-      return <button onClick={() => setAddMenuOpen(true)} className={'addButton'}><i className={'fa fa-plus fa-2x'}/></button>;
+      return <button onClick={() => setAddMenuOpen(true)} className={'addButton'}><i className={'fa fa-plus fa-2x'} /></button>;
     };
   };
 
   return (
     <div className={'searchWrapper'}>
       <div className={'searchBar'}>
-        <input onChange={onChange} className={'inputSearch'} type="text" placeholder="Search pantry"/>
+        <input onChange={onChange} className={'inputSearch'} type="text" placeholder="Search pantry" />
       </div>
-      <button onClick={onSearchClick} className={'searchButton'}><i className={'fa fa-search fa-2x'}/>
+      <button onClick={onSearchClick} className={'searchButton'}><i className={'fa fa-search fa-2x'} />
       </button>
       {renderAddButton(isAddMenuOpen, onAddClick)}
     </div>
   )
 };
 
-export default SearchBar;
+export default connect()(SearchBar);
