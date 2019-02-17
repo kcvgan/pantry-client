@@ -4,7 +4,7 @@ import DashboardPage from './dashboard/DashboardPage';
 import HomePage from './home/HomePage';
 import LoginPage from './login/LoginPage';
 import './App.css';
-import { State } from '../redux/reducers/rootReducer';
+import { State } from '../redux/reducers/root.reducer';
 import { connect } from 'react-redux';
 
 export interface AppProps {

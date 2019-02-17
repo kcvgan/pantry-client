@@ -11,9 +11,11 @@ export interface SearchBarProps {
 const SearchBar = (props: SearchBarProps) => {
   const [text, setText] = useState('');
   const [isAddMenuOpen, setAddMenuOpen] = useState(false);
+  const [isProductBeingAdded, setProductBeingAdded] = useState(false);
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setText(event.target.value);
+    props.onSearch(event.target.value);
   }
 
   const onSearchClick = () => {
@@ -25,13 +27,18 @@ const SearchBar = (props: SearchBarProps) => {
   }
 
   const addProduct = (product: Product) => {
-    productService.addProduct(product);
+    setProductBeingAdded(true);
+    productService.addProduct(product)
+    .then(response => {
+      setProductBeingAdded(false);
+      console.log(response);
+    });
   }
 
   const renderAddButton = (isMenuOpen: boolean, onAddClick: Function) => {
     if(isMenuOpen) {
       return (
-        <AddProduct setAddMenuOpen={setAddMenuOpen} addProduct={addProduct}/>
+        <AddProduct setAddMenuOpen={setAddMenuOpen} addProduct={addProduct} isAddingProduct={isProductBeingAdded}/>
       )
     } else {
       return <button onClick={() => setAddMenuOpen(true)} className={'addButton'}><i className={'fa fa-plus fa-2x'}/></button>;

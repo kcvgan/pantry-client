@@ -2,9 +2,17 @@ import React, { Component } from 'react';
 import './PantryContainer.css';
 import FoodList from './foodList/FoodList';
 import * as productService from '../../../services/product.service';
-import Product, { Products } from '../../../models/product.model';
+import { Products } from '../../../models/product.model';
 import SearchBar from './searchBar/SearchBar';
-import { string } from 'prop-types';
+import { Dispatch } from 'redux';
+import { State } from '../../../redux/reducers/root.reducer';
+import { connect } from 'react-redux';
+import { ActionTypes, Action } from '../../../redux/actions/product.actions';
+
+export interface PantryContainerProps {
+  products: Products
+  dispatch?: Dispatch
+};
 
 export interface PantryContainerState {
   products: Products;
@@ -12,28 +20,35 @@ export interface PantryContainerState {
 };
 
 const initialState: PantryContainerState = { products: [], filteredProducts: [] };
-const mockProduct: Product =     {
-  _id: 1,
-  name: 'Tomato',
-  type: 'veg',
-  quantity: '1',
-  unit: 'whole',
-};
 
-const mockState: PantryContainerState = {
-  products: [
-    mockProduct,
-  ],
-  filteredProducts: [mockProduct]
-};
+class PantryContainer extends Component<PantryContainerProps, PantryContainerState> {
+  constructor(props: PantryContainerProps) {
+    super(props);
+  }
 
-class PantryContainer extends Component {
-  state: PantryContainerState = mockState;
+  public static defaultProps = {
+    products: []
+  }
+
+  state: PantryContainerState = initialState;
 
   componentDidMount() {
+    const { dispatch } = this.props;
     productService.getAllProducts()
-      .then((products: Products) => {
-        this.setState({products: products, filteredProducts: products})
+      .then((value: Products) => {
+        const productsAction: Action = {
+          type: ActionTypes.STORE_PRODUCTS,
+          payload: {
+            products: value
+          }
+        };
+        if (dispatch) {
+          dispatch(productsAction)
+        };
+        this.setState({
+          products: value,
+          filteredProducts: value
+        })
       });
   };
 
@@ -42,17 +57,21 @@ class PantryContainer extends Component {
     const filteredProducts = products.filter(product => {
       return product.name.toLowerCase().includes(text)
     });
-    this.setState({products: products, filteredProducts: filteredProducts});
+    this.setState({ ...this.state, filteredProducts: filteredProducts });
   }
 
   public render() {
     return (
       <>
-        <SearchBar onSearch={this.onSearch}/>
-        <FoodList products={this.state.filteredProducts}/>
+        <SearchBar onSearch={this.onSearch} />
+        <FoodList products={this.props.products} />
       </>
     )
   }
 };
 
-export default PantryContainer;
+const mapStateToProps = ({ products }: State): PantryContainerProps => ({
+  products: products.products
+});
+
+export default connect(mapStateToProps)(PantryContainer);

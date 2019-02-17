@@ -23,3 +23,13 @@ export const addProduct = (product: Product): Promise<boolean> => {
       return false;
     });
 };
+
+export const deleteProduct = (product: Product): Promise<boolean> => {
+  return axiosWrapper.delete('/products/delete', { data: { id: product.id } })
+    .then((response: AxiosResponse) => {
+      return true;
+    })
+    .catch((error: AxiosError) => {
+      return false;
+    });
+};

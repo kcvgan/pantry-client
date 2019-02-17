@@ -5,8 +5,8 @@ import * as authService from '../../services/auth.service';
 import User from '../../models/user.model';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
-import { Dispatch, Store } from 'redux';
-import { State } from '../../redux/reducers/rootReducer';
+import { Dispatch } from 'redux';
+import { State } from '../../redux/reducers/root.reducer';
 import { ActionTypes } from '../../redux/actions/user.actions';
 
 export interface LoginPageProps {
@@ -17,9 +17,10 @@ export interface LoginPageProps {
 export interface LoginPageState {
   loggedIn: boolean;
   registered: boolean;
+  isLoading: false;
 };
 
-const initialState: LoginPageState = { loggedIn: false, registered: false };
+const initialState: LoginPageState = { loggedIn: false, registered: false, isLoading: false };
 
 class LoginPage extends Component<LoginPageProps, LoginPageState> {
   constructor(props: LoginPageProps) {
@@ -31,7 +32,6 @@ class LoginPage extends Component<LoginPageProps, LoginPageState> {
   submit = (user: User) => {
     authService.signIn(user)
       .then((value) => {
-        console.log(value);
         const tokenAction = {
           type: ActionTypes.AUTHENTICATED_USER,
           payload: {

@@ -36,14 +36,7 @@
   color: white;
   background-color: #FF785A;
 }
-.pButton:hover:after {
-  content: ' \279C';
-  transition:0.15s ease;
-}
-.pButton:active {
-  background-color: white;
-  color: #FF785A;
-}
+
 .pTextInput:focus {
   text-shadow: 1px 1px 6px rgba(150, 150, 150, 0.82);
   background-color: #FF785A;
