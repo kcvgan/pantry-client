@@ -33,13 +33,14 @@ const AddProduct = (props: AddProductProps) => {
 
   const onClickAddProduct = () => {
     addProduct(product);
+    setProduct(initialState);
   }
 
   const { setAddMenuOpen, addProduct } = props;
 
   return (
     <div className={'addProduct'}>
-      <input onChange={onChange} className={'input type'} name="type" type="text" placeholder="type"/>
+      <input onChange={onChange} className={'input type'} name="type" type="text" placeholder="type" />
       <input onChange={onChange} className={'input name'} name="name" type="text" placeholder="name" />
       <input onChange={onChange} className={'input quantity'} name="quantity" type="text" placeholder="quantity"/>
       <input onChange={onChange} className={'input unit'} name="unit" type="text" placeholder="unit"/>

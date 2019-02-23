@@ -15,11 +15,10 @@ export interface PantryContainerProps {
 };
 
 export interface PantryContainerState {
-  products: Products;
-  filteredProducts: Products;
+  searchTerm: string;
 };
 
-const initialState: PantryContainerState = { products: [], filteredProducts: [] };
+const initialState: PantryContainerState = { searchTerm: '' };
 
 class PantryContainer extends Component<PantryContainerProps, PantryContainerState> {
   constructor(props: PantryContainerProps) {
@@ -27,7 +26,7 @@ class PantryContainer extends Component<PantryContainerProps, PantryContainerSta
   }
 
   public static defaultProps = {
-    products: []
+    products: [],
   }
 
   state: PantryContainerState = initialState;
@@ -45,26 +44,24 @@ class PantryContainer extends Component<PantryContainerProps, PantryContainerSta
         if (dispatch) {
           dispatch(productsAction)
         };
-        this.setState({
-          products: value,
-          filteredProducts: value
-        })
       });
   };
 
   onSearch = (text: string) => {
-    const { products } = this.state;
-    const filteredProducts = products.filter(product => {
-      return product.name.toLowerCase().includes(text)
-    });
-    this.setState({ ...this.state, filteredProducts: filteredProducts });
+    this.setState({ ...this.state, searchTerm: text });
+  }
+
+  filterProducts = (products: Products, text: string): Products => {
+    return products.filter(product => { return product.name.toLowerCase().includes(text) })
   }
 
   public render() {
+    const { products } = this.props;
+    const { searchTerm } = this.state;
     return (
       <>
         <SearchBar onSearch={this.onSearch} />
-        <FoodList products={this.props.products} />
+        <FoodList products={this.filterProducts(products, searchTerm)} />
       </>
     )
   }

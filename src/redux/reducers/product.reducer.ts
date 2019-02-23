@@ -32,6 +32,33 @@ export const reducer = (state: State = initialState, action: Action) => {
         products: [...state.products, product]
       }
     }
+    case ActionTypes.INCREMENT_QUANTITY: {
+      const { product } = action.payload;
+      return {
+        ...state,
+        products: state.products.map(p => {
+          if (p.id === product.id) {
+            p.quantity = parseInt(p.quantity) + 1 + '';
+          }
+          return p;
+        })
+      }
+    }
+    case ActionTypes.DECREMENT_QUANTITY: {
+      const { product } = action.payload;
+      return {
+        ...state,
+        products: state.products.map(p => {
+          if (p.id === product.id) {
+            if (parseInt(p.quantity) !== 0) {
+              p.quantity = parseInt(p.quantity) - 1 + '';
+            }
+          }
+          return p;
+        })
+      }
+    }
+
     default:
       return state;
   }
