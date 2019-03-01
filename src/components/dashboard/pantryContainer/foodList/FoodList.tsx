@@ -5,7 +5,7 @@ import FoodItem from './foodItem/FoodItem';
 import { deleteProduct } from '../../../../services/product.service';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { ActionTypes, DeleteProductAction } from '../../../../redux/actions/product.actions';
+import { deleteProduct as deleteProductAction} from '../../../../redux/actions/product.actions';
 
 export interface FoodListProps {
   products: Products;
@@ -19,14 +19,10 @@ const FoodList = (props: FoodListProps) => {
   const onDeleteClick = (product: Product) => {
     deleteProduct(product)
       .then(response => {
-        const deleteAction: DeleteProductAction = {
-          type: ActionTypes.DELETE_PRODUCT,
-          payload: {
-            product: product
-          }
-        }
+        console.log(response);
+        console.log(product);
         if (dispatch) {
-          dispatch(deleteAction);
+          dispatch(deleteProductAction(product))
         }
       })
       .catch(error => {

@@ -3,7 +3,7 @@ import './FoodItem.css';
 import { Product } from '../../../../../models/product.model';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { ActionTypes } from '../../../../../redux/actions/product.actions';
+import { ActionTypes, decrementQuantity, incrementQuantity, increment, decrement } from '../../../../../redux/actions/product.actions';
 
 export interface FoodItemProps {
   key?: number;
@@ -20,27 +20,16 @@ interface ItemQuantityProps {
 
 const ItemQuantity: SFC<ItemQuantityProps> = (props: ItemQuantityProps) => {
   const { dispatch, product } = props;
+
   const incrementProduct = (product: Product) => {
     if(dispatch) {
-      const incrementAction = {
-        type: ActionTypes.INCREMENT_QUANTITY,
-        payload: {
-          product: product
-        }
-      }
-      dispatch(incrementAction)
+      increment(product, dispatch);
     }
   }
 
   const decrementProduct = (product: Product) =>  {
     if(dispatch) {
-      const decrementAction = {
-        type: ActionTypes.DECREMENT_QUANTITY,
-        payload: {
-          product: product
-        }
-      }
-      dispatch(decrementAction)
+      decrement(product, dispatch);
     }
   }
 

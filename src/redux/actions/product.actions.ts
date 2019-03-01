@@ -1,4 +1,8 @@
 import Product, { Products } from "../../models/product.model";
+import axiosWrapper from "../../util/axiosWrapper";
+import { AxiosError, AxiosResponse } from "axios";
+import { Dispatch } from "redux";
+import { getAllProducts } from "../../services/product.service";
 
 export enum ActionTypes {
   STORE_PRODUCTS = 'STORE_PRODUCTS',
@@ -43,6 +47,38 @@ export const incrementQuantity = (product: Product): IncrementQuantityAction => 
     product
   }
 });
+
+export const increment = (product: Product, dispatch: Dispatch) => {
+  if(parseInt(product.quantity) !== 0) {
+    product.quantity = parseInt(product.quantity) + 1 + '';
+  }
+  return axiosWrapper.post('/products/update', product)
+    .then((response: AxiosResponse) => {
+      getAllProducts()
+        .then((products: Products) => {
+          dispatch(storeProducts(products));
+        })
+    })
+    .catch((error: AxiosError) => {
+      console.log(error);
+    })
+};
+
+export const decrement = (product: Product, dispatch: Dispatch) => {
+  if (parseInt(product.quantity) !== 0) {
+    product.quantity = parseInt(product.quantity) - 1 + '';
+  }
+  return axiosWrapper.post('/products/update', product)
+    .then((response: AxiosResponse) => {
+      getAllProducts()
+        .then((products: Products) => {
+          dispatch(storeProducts(products));
+      })
+    })
+    .catch((error: AxiosError) => {
+      console.log(error);
+    })
+};
 
 export interface DecrementQuantityAction { type: ActionTypes.DECREMENT_QUANTITY, payload: { product: Product } };
 
