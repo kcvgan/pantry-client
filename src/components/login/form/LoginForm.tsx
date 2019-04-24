@@ -1,31 +1,14 @@
-import React, { useState, ChangeEvent, ReactNode } from 'react';
-import './LoginForm.css';
-import User from '../../../models/user.model';
+import React, { ChangeEvent, FC, useState } from 'react';
+import LoginRequest from '../../../models/rest/login.request';
 import Spinner from '../../utilComponents/spinner';
+import './LoginForm.css';
 
-export interface LoginFormProps {
-  submitUser(user: User): void;
-  registerUser(user: User): void;
-  registerButtonState: boolean;
-}
-
-const LoginForm = (props: LoginFormProps) => {
-  const [values, setValues] = useState({ email: '', password: '' });
-  const [isLoginClicked, setLoginClicked] = useState(false);
-  const [isRegisterClicked, setRegisterClicked] = useState(false);
+const LoginForm: FC<{ submitUser: (loginRequest: LoginRequest) => void }> = ({ submitUser }) => {
+  const [values, setValues] = useState<LoginRequest>({ usernameOrEmail: '', password: '' });
+  const [wasLoginClicked, setLoginClicked] = useState(false);
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [event.target.name]: event.target.value });
-  }
-
-  const { submitUser, registerUser, registerButtonState } = props;
-
-  const isRegistered = (registerButtonState: boolean): string => {
-    if (registerButtonState) {
-      return 'pButtonRegistered';
-    } else {
-      return 'pButton';
-    }
   }
 
   const onLoginClick = () => {
@@ -33,34 +16,24 @@ const LoginForm = (props: LoginFormProps) => {
     submitUser(values);
   }
 
-  const onRegisterClick = () => {
-    setRegisterClicked(true);
-    registerUser(values);
-  }
-
-  const loginButton = isLoginClicked ? <Spinner /> : 'Submit';
-
-  const registerButtonContents = () => {
-    if (!registerButtonState) {
-      if (isRegisterClicked) {
-        return <Spinner />;
-      } else {
-        return 'Register';
-      }
-    } else {
-      return 'Success';
-    }
-  };
+  const loginButtonContent = wasLoginClicked ? <Spinner /> : 'Submit';
 
   return (
     <>
-      <input onChange={onChange} name="email" className={'pTextInput'} type="text" placeholder="Email" />
-      <input onChange={onChange} name="password" className={'pTextInput'} type="password" placeholder="Password" />
+      <input
+        onChange={onChange}
+        name="usernameOrEmail"
+        className={'pTextInput'}
+        type="text"
+        placeholder="Email or Username" />
+      <input
+        onChange={onChange}
+        name="password"
+        className={'pTextInput'}
+        type="password"
+        placeholder="Password" />
       <button className={'pButton'} onClick={onLoginClick}>
-        {loginButton}
-      </button>
-      <button className={isRegistered(registerButtonState)} onClick={onRegisterClick}>
-        {registerButtonContents()}
+        {loginButtonContent}
       </button>
     </>
   );

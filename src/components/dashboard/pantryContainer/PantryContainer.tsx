@@ -25,7 +25,7 @@ class PantryContainer extends Component<PantryContainerProps, PantryContainerSta
     super(props);
   }
 
-  public static defaultProps = {
+  static defaultProps: PantryContainerProps = {
     products: [],
   }
 

@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
+import { Dispatch } from 'redux';
+import LoginRequest from '../../models/rest/login.request';
+import User from '../../models/user.model';
+import { authenticatedUser } from '../../redux/actions/user.actions';
+import { State } from '../../redux/reducers/root.reducer';
+import * as authService from '../../services/auth.service';
 import LoginForm from './form/LoginForm';
 import './LoginPage.css';
-import * as authService from '../../services/auth.service';
-import User from '../../models/user.model';
-import { Redirect } from 'react-router';
-import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
-import { State } from '../../redux/reducers/root.reducer';
-import { ActionTypes } from '../../redux/actions/user.actions';
 
 export interface LoginPageProps {
   token?: string;
@@ -29,19 +30,11 @@ class LoginPage extends Component<LoginPageProps, LoginPageState> {
 
   state: LoginPageState = initialState;
 
-  submit = (user: User) => {
-    authService.signIn(user)
-      .then((value) => {
-        const tokenAction = {
-          type: ActionTypes.AUTHENTICATED_USER,
-          payload: {
-            token: value
-          }
-        };
-        if (this.props.dispatch) {
-          this.props.dispatch(tokenAction);
-        };
-      });
+  submit = async (loginRequest: LoginRequest) => {
+    const [token, error] = await authService.signIn(loginRequest);
+    if (token) {
+      this.props.dispatch(authenticatedUser(token))
+    }
   };
 
   register = (user: User) => {
@@ -59,9 +52,10 @@ class LoginPage extends Component<LoginPageProps, LoginPageState> {
 
     return (
       <div className={'loginContainer'}>
-        <LoginForm submitUser={(user: User) => this.submit(user)}
-          registerUser={(user: User) => this.register(user)}
-          registerButtonState={registered} />
+        <LoginForm
+          submitUser={(LoginRequest: LoginRequest) => this.submit(LoginRequest)}
+        />
+        <button onClick={() => console.log('trying to register')}>Register</button>
       </div>
     )
   }
