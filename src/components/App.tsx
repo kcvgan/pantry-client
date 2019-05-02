@@ -1,11 +1,12 @@
 import React from 'react';
-import { Switch, Route, Redirect, BrowserRouter as Router } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { State } from '../redux/reducers/root.reducer';
+import './App.css';
 import DashboardPage from './dashboard/DashboardPage';
 import HomePage from './home/HomePage';
 import LoginPage from './login/LoginPage';
-import './App.css';
-import { State } from '../redux/reducers/root.reducer';
-import { connect } from 'react-redux';
+import RegisterPage from './register/RegisterPage';
 
 export interface AppProps {
   token?: string
@@ -28,6 +29,7 @@ const App = (props: AppProps) => {
     <Router>
       <Switch>
         <Route exact path="/" component={HomePage} />
+        <Route exact path="/register" component={RegisterPage} />
         <Route exact path="/login" component={LoginPage} />
         <Redirect from="/dash" to="/login" />
       </Switch>

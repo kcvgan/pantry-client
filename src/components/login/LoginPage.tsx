@@ -7,8 +7,9 @@ import User from '../../models/user.model';
 import { authenticatedUser } from '../../redux/actions/user.actions';
 import { State } from '../../redux/reducers/root.reducer';
 import * as authService from '../../services/auth.service';
-import LoginForm from './form/LoginForm';
+import LoginForm from './loginForm/LoginForm';
 import './LoginPage.css';
+import { Link } from 'react-router-dom';
 
 export interface LoginPageProps {
   token?: string;
@@ -55,7 +56,7 @@ class LoginPage extends Component<LoginPageProps, LoginPageState> {
         <LoginForm
           submitUser={(LoginRequest: LoginRequest) => this.submit(LoginRequest)}
         />
-        <button onClick={() => console.log('trying to register')}>Register</button>
+        <Link to={'/register'} className={'pButton'} style={{ textAlign: 'center', textDecoration: 'none' }}>Register</Link>
       </div>
     )
   }
