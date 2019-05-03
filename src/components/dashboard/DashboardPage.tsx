@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Navbar from './navbar/Navbar';
 import './DashboardPage.css';
-import PantryContainer from './pantryContainer/PantryContainer';
+import PantryContainer from './pantry/PantryContainer';
 
 class DashboardPage extends Component {
 

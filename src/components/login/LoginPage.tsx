@@ -33,7 +33,7 @@ class LoginPage extends Component<LoginPageProps, LoginPageState> {
 
   submit = async (loginRequest: LoginRequest) => {
     const [token, error] = await authService.signIn(loginRequest);
-    if (token) {
+    if (token && this.props.dispatch) {
       this.props.dispatch(authenticatedUser(token))
     }
   };

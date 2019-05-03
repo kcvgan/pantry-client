@@ -1,6 +1,5 @@
 import React, { ChangeEvent, FC, useState } from 'react';
 import LoginRequest from '../../../models/rest/login.request';
-import Spinner from '../../utilComponents/spinner';
 import './LoginForm.css';
 import Button from '../../utilComponents/button';
 
