@@ -44,3 +44,8 @@
   background-color: white;
   color: #EF7F63;
 }
+
+.addButton::after {
+  background-color: #EF7F63;
+  border: 2px solid white;
+}

@@ -7,6 +7,7 @@ class HomePage extends Component {
       <>
         <h1>Welcome to pantry</h1>
         <Link to={'/login'}>Login</Link>
+        <Link to={'/register'}>Register</Link>
       </>
     )
   }

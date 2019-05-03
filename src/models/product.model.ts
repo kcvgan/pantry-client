@@ -1,5 +1,5 @@
 export interface Product {
-  _id: number,
+  id?: number,
   name: string,
   type: string,
   tags?: string,
@@ -7,6 +7,6 @@ export interface Product {
   unit: string
 };
 
-export interface Products extends Array<Product>{};
+export interface Products extends Array<Product> { };
 
 export default Product;

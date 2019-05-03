@@ -1,22 +1,45 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import LoginPage from './login/LoginPage';
-import HomePage from './home/HomePage';
+import React from 'react';
+import { connect } from 'react-redux';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { State } from '../redux/reducers/root.reducer';
 import './App.css';
 import DashboardPage from './dashboard/DashboardPage';
+import HomePage from './home/HomePage';
+import LoginPage from './login/LoginPage';
+import RegisterPage from './register/RegisterPage';
 
-class App extends Component {
-  public render() {
+export interface AppProps {
+  token?: string
+}
+
+const App = (props: AppProps) => {
+
+  if (props.token) {
     return (
       <Router>
         <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/dash" component={DashboardPage} />
+          <Route exact path="/dash" component={DashboardPage} />
+          <Redirect from="/login" to="/dash" />
         </Switch>
       </Router>
     );
-  }
-}
+  };
 
-export default App;
+  return (
+    <Router>
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route exact path="/register" component={RegisterPage} />
+        <Route exact path="/login" component={LoginPage} />
+        <Redirect from="/dash" to="/login" />
+      </Switch>
+    </Router >
+  );
+
+};
+
+const mapStateToProps = (state: State): AppProps => ({
+  token: state.token.token
+});
+
+export default connect(mapStateToProps)(App);
