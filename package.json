@@ -37,6 +37,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@storybook/addon-knobs": "5.0.11",
     "@storybook/react": "5.0.11",
     "@types/storybook__react": "4.0.1",
     "awesome-typescript-loader": "5.2.1",

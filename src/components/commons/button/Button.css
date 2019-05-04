@@ -1,0 +1,33 @@
+.button {
+    font-size: 15px;
+    align-self: stretch;
+    cursor: pointer;
+    color: #FF785A;
+    background: none;
+    border: 1px solid #FF785A;
+    border-radius: 6px;
+    outline: none;
+    padding: 1em 1.5em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+    transition: color 0.25s ease;
+}
+
+.button:hover {
+    text-shadow: 1px 1px 6px rgba(150, 150, 150, 0.82);
+    color: white;
+    background-color: #FF785A;
+}
+
+.button-disabled {
+    cursor: not-allowed;
+    color: rgba(0, 0, 0, 0.15);
+    background: whitesmoke;
+    border: 1px solid grey;
+}
+
+.button-subtle {
+    border: 1px solid transparent;
+    font-weight: normal;
+}
